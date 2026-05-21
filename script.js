@@ -399,7 +399,6 @@ matches = 0;
 timer = 0;
 
 paused = false;
-gameStarted = false;
 
 timerElement.innerText = 0;
 movesElement.innerText = 0;
@@ -413,28 +412,7 @@ popup.classList.remove(
 "show"
 );
 
-const settings =
-difficultySettings[
-difficultySelect.value
-];
-
-board.style.gridTemplateColumns =
-settings.grid;
-
-const cards =
-generateCards();
-
-cards.forEach(emoji=>{
-
-board.appendChild(
-createCard(emoji)
-);
-
-});
-
-startCountdown();
-
-loadBestScore();
+/* HARD MODE */
 
 if(difficultySelect.value === "hard"){
 
@@ -456,17 +434,90 @@ document.body.style.filter =
 
 }
 
+/* GAME SETTINGS */
+
+const settings =
+difficultySettings[
+difficultySelect.value
+];
+
+board.style.gridTemplateColumns =
+settings.grid;
+
+/* CREATE CARDS */
+
+const cards =
+generateCards();
+
+cards.forEach(emoji=>{
+
+board.appendChild(
+createCard(emoji)
+);
+
+});
+
+/* START */
+
+startCountdown();
+
+loadBestScore();
+
+}
+
+/* HARD MODE MOBILE FIX */
+
+if(difficultySelect.value === "hard"){
+
+document.body.classList.add(
+"hard-mode"
+);
+
 document.body.style.filter =
 "contrast(1.08) brightness(0.92)";
 
 }else{
+
+document.body.classList.remove(
+"hard-mode"
+);
 
 document.body.style.filter =
 "none";
 
 }
 
-}
+/* GAME SETTINGS */
+
+const settings =
+difficultySettings[
+difficultySelect.value
+];
+
+board.style.gridTemplateColumns =
+settings.grid;
+
+/* CREATE CARDS */
+
+const cards =
+generateCards();
+
+cards.forEach(emoji=>{
+
+board.appendChild(
+createCard(emoji)
+);
+
+});
+
+/* START GAME */
+
+startCountdown();
+
+loadBestScore();
+
+
+
 
 function startCountdown(){
 
@@ -845,6 +896,7 @@ bestScoreElement.innerText =
 best ? best : 0;
 
 }
+
 difficultySelect.addEventListener(
 "change",
 loadBestScore
