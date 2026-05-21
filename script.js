@@ -1,20 +1,44 @@
 const categories = {
 
-animals:["🐶","🐱","🦊","🐼","🦁","🐸","🐨","🐯"],
+animals:[
+"🐶","🐱","🦊","🐼",
+"🦁","🐸","🐨","🐯"
+],
 
-space:["🚀","🌙","🪐","⭐","☄️","🛰️","👨‍🚀","🌌"],
+space:[
+"🚀","🌙","🪐","⭐",
+"☄️","🛰️","👨‍🚀","🌌"
+],
 
-vehicles:["🚗","🏎️","🚕","🛵","✈️","🚁","🚀","🚲"],
+vehicles:[
+"🚗","🏎️","🚕","🛵",
+"✈️","🚁","🚢","🚲"
+],
 
-shapes:["🔺","🔷","🟣","⭐","🟢","🟥","⬛","💠"],
+shapes:[
+"🔺","🔵","🟣","🟢",
+"🟥","⬛","⭐","🔶"
+],
 
-sports:["⚽","🏀","🏈","🎾","🏓","🥊","🏸","🏆"],
+sports:[
+"⚽","🏀","🏈","🎾",
+"🏓","🥊","🏸","🏆"
+],
 
-fruits:["🍎","🍉","🍓","🍍","🍒","🥝","🍇","🍌"],
+fruits:[
+"🍎","🍉","🍓","🍍",
+"🍒","🥝","🍇","🍌"
+],
 
-flowers:["🌸","🌹","🌻","🌷","💐","🪻","🌺","🍀"],
+flowers:[
+"🌸","🌹","🌻","🌷",
+"💐","🪻","🌺","🍀"
+],
 
-emojis:["😎","🤖","👻","🔥","🥶","💀","👽","🎃"]
+emojis:[
+"😎","🤖","👻","🔥",
+"🥶","💀","👽","🎃"
+]
 
 };
 let gameStarted = false;
@@ -520,7 +544,8 @@ loadBestScore();
 
 
 function startCountdown(){
-
+countdown.style.display =
+"block";
 let count = 3;
 
 countdown.innerText = count;
@@ -558,6 +583,12 @@ countdownInterval
 countdown.innerText =
 "GO!";
 gameStarted = true;
+setTimeout(()=>{
+
+countdown.style.display =
+"none";
+
+},1000);
 
 countdown.classList.remove(
 "show"
