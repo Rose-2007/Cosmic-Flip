@@ -901,123 +901,126 @@ scale(1);
 
 @media(max-width:768px){
 
+body{
+padding:18px;
+overflow-x:hidden;
+}
+
 .main-logo,
 .title{
-
-font-size:2.5rem;
-
-letter-spacing:3px;
-
-padding:0 18px;
+font-size:2.1rem;
+letter-spacing:2px;
+padding:0 10px;
+text-align:center;
 }
 
 .setup-title{
-
-font-size:1.5rem;
-
+font-size:1.4rem;
 text-align:center;
 }
 
 .tagline{
-
-font-size:0.95rem;
-
-padding:0 25px;
-
-line-height:1.6;
+font-size:0.9rem;
+line-height:1.5;
+padding:0 10px;
+text-align:center;
 }
 
 .setup-box{
+width:100%;
+max-width:320px;
+gap:16px;
+}
 
-width:90%;
+select{
+font-size:0.92rem;
+padding:13px;
 }
 
 .stats{
-
-gap:12px;
+gap:10px;
+margin:20px 0;
 }
 
 .glass-box{
+padding:10px 14px;
+font-size:0.78rem;
+border-radius:14px;
+}
 
-padding:12px 16px;
-
-font-size:0.85rem;
+.progress-container{
+width:95%;
+max-width:300px;
+margin-bottom:22px;
 }
 
 .game-board{
-
-gap:12px;
+gap:10px;
 }
 
 .card{
+width:68px;
+height:68px;
+}
 
-width:78px;
-height:78px;
+body.hard-mode .card{
+width:58px;
+height:58px;
 }
 
 .back{
+font-size:1.7rem;
+}
 
-font-size:2rem;
+body.hard-mode .back{
+font-size:1.4rem;
 }
 
 button,
 .main-btn{
+padding:11px 16px;
+font-size:0.8rem;
+min-width:110px;
+border-radius:14px;
+}
 
-padding:12px 18px;
-
-font-size:0.82rem;
-
-min-width:120px;
+.buttons{
+gap:10px;
+margin-top:22px;
 }
 
 .popup-content,
 .pause-box{
-
-width:90%;
-
-padding:30px 24px;
+width:95%;
+padding:28px 18px;
+border-radius:22px;
 }
 
 .popup-content h2{
-
-font-size:1.9rem;
-
-font-weight:700;
-
-letter-spacing:2px;
-
-line-height:1;
-
-margin-bottom:26px;
-
-text-align:center;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-gap:10px;
+font-size:1.3rem;
+letter-spacing:1px;
 }
+
 #finalStats{
-
-font-size:0.95rem;
-
+font-size:0.9rem;
 line-height:1.9;
 }
 
 .countdown{
-
-font-size:4rem;
-}
-
-.progress-container{
-
-width:85%;
+font-size:3.5rem;
 }
 
 .combo-text{
+font-size:1.5rem;
+text-align:center;
+}
 
-font-size:2rem;
+.cursor-glow{
+display:none;
+}
+
+.planet{
+opacity:0.18;
 }
 
 }
