@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
+
+<title>Cosmic Flip</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- LOADING -->
+
+<div class="loading-screen">
+
+<h1 class="loading-title">
+✨ COSMIC FLIP ✨
+</h1>
+
+</div>
+
+<!-- BACKGROUND -->
+
+<div class="background"></div>
+
+<div class="particles"></div>
+
+<div class="cursor-glow"></div>
+
+<div class="planet planet1"></div>
+<div class="planet planet2"></div>
+<div class="planet planet3"></div>
+
+<!-- HOME -->
+
+<section class="screen active"
+id="homeScreen">
+
+<h1 class="main-logo">
+✨ COSMIC FLIP ✨
+</h1>
+
+<p class="tagline">
+A futuristic neon memory experience
+</p>
+
+<button class="main-btn"
+id="startBtn">
+
+START GAME
+
+</button>
+
+</section>
+
+<!-- SETUP -->
+
+<section class="screen"
+id="setupScreen">
+
+<h2 class="setup-title">
+Configure Your Mission 🚀
+</h2>
+
+<div class="setup-box">
+
+<select id="categorySelect">
+
+<option value="animals">
+🐾 Animals
+</option>
+
+<option value="space">
+🌌 Space
+</option>
+
+<option value="vehicles">
+🚗 Vehicles
+</option>
+
+<option value="shapes">
+🔷 Shapes
+</option>
+
+<option value="sports">
+⚽ Sports
+</option>
+
+<option value="fruits">
+🍓 Fruits
+</option>
+
+<option value="flowers">
+🌸 Flowers
+</option>
+
+<option value="emojis">
+😎 Emojis
+</option>
+
+</select>
+
+<select id="difficultySelect">
+
+<option value="easy">
+Easy
+</option>
+
+<option value="medium">
+Medium
+</option>
+
+<option value="hard">
+Hard
+</option>
+
+</select>
+
+<button class="main-btn"
+id="playBtn">
+
+PLAY NOW
+
+</button>
+
+</div>
+
+</section>
+
+<!-- GAME -->
+
+<section class="screen"
+id="gameScreen">
+
+<h1 class="title">
+✨ Cosmic Flip ✨
+</h1>
+
+<div class="stats">
+
+<div class="glass-box">
+⏱ <span id="timer">0</span>s
+</div>
+
+<div class="glass-box">
+🎯 <span id="moves">0</span>
+</div>
+
+<div class="glass-box">
+🏆 <span id="bestScore">0</span>
+</div>
+
+</div>
+
+<div class="progress-container">
+
+<div class="progress-bar"
+id="progressBar"></div>
+
+</div>
+
+<div class="game-board"
+id="gameBoard"></div>
+
+<div class="buttons">
+
+<button onclick="startGame()">
+🔄 Restart
+</button>
+
+<button id="pauseBtn">
+⏸ Pause
+</button>
+
+<button id="homeBtn">
+🏠 Home
+</button>
+
+<button id="muteBtn">
+🔊 Sound
+</button>
+
+</div>
+
+</section>
+
+<!-- WIN POPUP -->
+
+<div class="win-popup"
+id="winPopup">
+
+<div class="popup-content">
+
+<h2>
+🎉 LEVEL COMPLETE 🎉
+</h2>
+
+<p id="finalStats"></p>
+
+<div class="win-buttons">
+
+<button onclick="startGame()">
+🔄 Play Again
+</button>
+
+<button id="goBackBtn">
+⬅ Go Back
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PAUSE -->
+
+<div class="pause-overlay"
+id="pauseOverlay">
+
+<div class="pause-box">
+
+<h2>⏸ GAME PAUSED</h2>
+
+<button id="resumeBtn">
+▶ Resume
+</button>
+
+</div>
+
+</div>
+
+<!-- COUNTDOWN -->
+
+<div class="countdown"
+id="countdown">
+3
+</div>
+
+<!-- AUDIO -->
+
+<audio id="bgMusic" loop>
+
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8c8a73467.mp3"
+type="audio/mpeg">
+
+</audio>
+
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8c8a73467.mp3">
+
+</audio>
+
+<audio id="flipSound">
+<source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3">
+</audio>
+
+<audio id="matchSound">
+<source src="https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3">
+</audio>
+
+<audio id="winSound">
+<source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3">
+</audio>
+
+<audio id="wrongSound">
+<source src="https://assets.mixkit.co/active_storage/sfx/2944/2944-preview.mp3">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
