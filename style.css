@@ -835,7 +835,7 @@ letter-spacing:2px;
 /* COUNTDOWN */
 
 .countdown{
-
+display:none;
 position:fixed;
 
 top:50%;
@@ -906,22 +906,31 @@ padding:18px;
 overflow-x:hidden;
 }
 
+.home-screen{
+text-align:center;
+}
 .main-logo,
 .title{
 
-font-size:1.9rem;
+width:100%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+font-size:1.8rem;
 
 line-height:1.2;
 
 letter-spacing:1px;
 
-padding:0 18px;
+padding:0 12px;
 
-text-align:center;
-
-max-width:100%;
-
-word-break:break-word;
+margin:0 auto;
 }
 
 .setup-title{
