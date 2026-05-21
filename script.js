@@ -41,16 +41,22 @@ emojis:[
 ]
 
 };
+
 let gameStarted = false;
-window.addEventListener(
-"click",
-()=>{
 
-bgMusic.play();
+let firstCard = null;
+let secondCard = null;
 
-},
-{ once:true }
-);
+let lockBoard = false;
+
+let moves = 0;
+let matches = 0;
+let timer = 0;
+
+let interval;
+
+let muted = false;
+let paused = false;
 
 const difficultySettings = {
 
@@ -76,20 +82,6 @@ grid:"repeat(4,100px)"
 }
 
 };
-
-let firstCard = null;
-let secondCard = null;
-
-let lockBoard = false;
-
-let moves = 0;
-let matches = 0;
-let timer = 0;
-
-let interval;
-
-let muted = false;
-let paused = false;
 
 const board =
 document.getElementById("gameBoard");
@@ -132,46 +124,6 @@ document.getElementById("wrongSound");
 
 const bgMusic =
 document.getElementById("bgMusic");
-function startMusic(){
-
-bgMusic.volume = 0.25;
-
-bgMusic.play().catch(()=>{
-
-console.log(
-"Autoplay blocked"
-);
-
-});
-
-}
-
-document.addEventListener(
-"click",
-startMusic,
-{ once:true }
-);
-
-document.addEventListener(
-"touchstart",
-startMusic,
-{ once:true }
-);
-
-const goBackBtn =
-document.getElementById("goBackBtn");
-
-goBackBtn.addEventListener("click",()=>{
-
-popup.classList.remove("show");
-
-gameScreen.classList.remove("active");
-
-setupScreen.classList.add("active");
-
-clearInterval(interval);
-
-});
 
 const muteBtn =
 document.getElementById("muteBtn");
@@ -191,6 +143,9 @@ document.getElementById("countdown");
 const homeBtn =
 document.getElementById("homeBtn");
 
+const goBackBtn =
+document.getElementById("goBackBtn");
+
 const cursor =
 document.querySelector(".cursor-glow");
 
@@ -203,9 +158,35 @@ document.getElementById("setupScreen");
 const gameScreen =
 document.getElementById("gameScreen");
 
+/* MUSIC */
+
+function startMusic(){
+
+bgMusic.volume = 0.25;
+
+bgMusic.play().catch(()=>{});
+
+}
+
+document.addEventListener(
+"click",
+startMusic,
+{ once:true }
+);
+
+document.addEventListener(
+"touchstart",
+startMusic,
+{ once:true }
+);
+
+/* CURSOR */
+
 document.addEventListener(
 "mousemove",
 (e)=>{
+
+if(cursor){
 
 cursor.style.left =
 `${e.clientX}px`;
@@ -213,9 +194,11 @@ cursor.style.left =
 cursor.style.top =
 `${e.clientY}px`;
 
+}
+
 });
 
-bgMusic.volume = 0.25;
+/* SOUND */
 
 muteBtn.addEventListener(
 "click",
@@ -244,6 +227,8 @@ sound.play();
 
 }
 
+/* SCREEN NAVIGATION */
+
 document
 .getElementById("startBtn")
 .addEventListener(
@@ -265,8 +250,6 @@ document
 .addEventListener(
 "click",
 ()=>{
-
-
 
 setupScreen.classList.remove(
 "active"
@@ -304,6 +287,28 @@ pauseOverlay.classList.remove(
 
 });
 
+goBackBtn.addEventListener(
+"click",
+()=>{
+
+popup.classList.remove(
+"show"
+);
+
+gameScreen.classList.remove(
+"active"
+);
+
+setupScreen.classList.add(
+"active"
+);
+
+clearInterval(interval);
+
+});
+
+/* PAUSE */
+
 pauseBtn.addEventListener(
 "click",
 ()=>{
@@ -339,6 +344,8 @@ timer;
 
 });
 
+/* SHUFFLE */
+
 function shuffle(array){
 
 for(
@@ -360,6 +367,8 @@ Math.random()*(i+1)
 return array;
 
 }
+
+/* GENERATE CARDS */
 
 function generateCards(){
 
@@ -385,6 +394,8 @@ return shuffle([
 ]);
 
 }
+
+/* CREATE CARD */
 
 function createCard(emoji){
 
@@ -414,6 +425,8 @@ return card;
 
 }
 
+/* START GAME */
+
 function startGame(){
 
 clearInterval(interval);
@@ -423,6 +436,7 @@ matches = 0;
 timer = 0;
 
 paused = false;
+gameStarted = false;
 
 timerElement.innerText = 0;
 movesElement.innerText = 0;
@@ -436,16 +450,11 @@ popup.classList.remove(
 "show"
 );
 
-/* HARD MODE */
-
 if(difficultySelect.value === "hard"){
 
 document.body.classList.add(
 "hard-mode"
 );
-
-document.body.style.filter =
-"contrast(1.08) brightness(0.92)";
 
 }else{
 
@@ -453,12 +462,7 @@ document.body.classList.remove(
 "hard-mode"
 );
 
-document.body.style.filter =
-"none";
-
 }
-
-/* GAME SETTINGS */
 
 const settings =
 difficultySettings[
@@ -467,8 +471,6 @@ difficultySelect.value
 
 board.style.gridTemplateColumns =
 settings.grid;
-
-/* CREATE CARDS */
 
 const cards =
 generateCards();
@@ -481,78 +483,23 @@ createCard(emoji)
 
 });
 
-/* START */
+loadBestScore();
 
 startCountdown();
 
-loadBestScore();
-
 }
 
-/* HARD MODE MOBILE FIX */
-
-if(difficultySelect.value === "hard"){
-
-document.body.classList.add(
-"hard-mode"
-);
-
-document.body.style.filter =
-"contrast(1.08) brightness(0.92)";
-
-}else{
-
-document.body.classList.remove(
-"hard-mode"
-);
-
-document.body.style.filter =
-"none";
-
-}
-
-/* GAME SETTINGS */
-
-const settings =
-difficultySettings[
-difficultySelect.value
-];
-
-board.style.gridTemplateColumns =
-settings.grid;
-
-/* CREATE CARDS */
-
-const cards =
-generateCards();
-
-cards.forEach(emoji=>{
-
-board.appendChild(
-createCard(emoji)
-);
-
-});
-
-/* START GAME */
-
-startCountdown();
-
-loadBestScore();
-
-
+/* COUNTDOWN */
 
 
 function startCountdown(){
+
 countdown.style.display =
-"block";
+"flex";
+
 let count = 3;
 
 countdown.innerText = count;
-
-countdown.classList.add(
-"show"
-);
 
 const countdownInterval =
 setInterval(()=>{
@@ -564,15 +511,10 @@ if(count > 0){
 countdown.innerText =
 count;
 
-countdown.classList.remove(
-"show"
-);
+}else if(count === 0){
 
-void countdown.offsetWidth;
-
-countdown.classList.add(
-"show"
-);
+countdown.innerText =
+"GO!";
 
 }else{
 
@@ -580,31 +522,8 @@ clearInterval(
 countdownInterval
 );
 
-countdown.innerText =
-"GO!";
-gameStarted = true;
-setTimeout(()=>{
-
 countdown.style.display =
 "none";
-
-},1000);
-
-countdown.classList.remove(
-"show"
-);
-
-void countdown.offsetWidth;
-
-countdown.classList.add(
-"show"
-);
-
-setTimeout(()=>{
-
-countdown.classList.remove(
-"show"
-);
 
 previewCards();
 
@@ -617,13 +536,12 @@ timer;
 
 },1000);
 
-},800);
-
 }
 
 },1000);
 
 }
+/* PREVIEW */
 
 function previewCards(){
 
@@ -646,6 +564,8 @@ card.classList.remove(
 
 });
 
+gameStarted = true;
+
 },
 difficultySettings[
 difficultySelect.value
@@ -653,12 +573,15 @@ difficultySelect.value
 
 }
 
+/* FLIP */
+
 function flipCard(){
 
 if(paused || !gameStarted)
 return;
 
-if(lockBoard) return;
+if(lockBoard)
+return;
 
 if(this === firstCard)
 return;
@@ -686,6 +609,8 @@ checkMatch();
 
 }
 
+/* MATCH */
+
 function checkMatch(){
 
 const matched =
@@ -700,8 +625,6 @@ play(matchSound);
 matches++;
 
 updateProgress();
-
-createParticles();
 
 showCombo();
 
@@ -727,14 +650,6 @@ if(matches === total){
 clearInterval(interval);
 
 play(winSound);
-
-confetti({
-
-particleCount:200,
-spread:100,
-origin:{y:0.6}
-
-});
 
 finalStats.innerHTML = `
 
@@ -765,85 +680,26 @@ lockBoard = true;
 
 setTimeout(()=>{
 
-firstCard.classList.remove("flip");
-secondCard.classList.remove("flip");
+firstCard.classList.remove(
+"flip"
+);
+
+secondCard.classList.remove(
+"flip"
+);
 
 resetBoard();
 
-}, difficultySettings[difficultySelect.value].flipBack);
-
-}
-
-
-}
-
-function createParticles(){
-
-for(let i=0;i<12;i++){
-
-const particle =
-document.createElement("div");
-
-particle.style.position =
-"fixed";
-
-particle.style.width =
-"10px";
-
-particle.style.height =
-"10px";
-
-particle.style.borderRadius =
-"50%";
-
-particle.style.background =
-"cyan";
-
-particle.style.left =
-`${Math.random()*100}%`;
-
-particle.style.top =
-`${Math.random()*100}%`;
-
-particle.style.boxShadow =
-"0 0 20px cyan";
-
-particle.style.zIndex =
-"999";
-
-document.body.appendChild(
-particle
-);
-
-particle.animate([
-
-{
-transform:"scale(1)",
-opacity:1
 },
-
-{
-transform:
-"translateY(-120px) scale(0)",
-
-opacity:0
-}
-
-],{
-
-duration:1000
-
-});
-
-setTimeout(()=>{
-
-particle.remove();
-
-},1000);
+difficultySettings[
+difficultySelect.value
+].flipBack);
 
 }
 
 }
+
+/* COMBO */
 
 function showCombo(){
 
@@ -869,6 +725,8 @@ text.remove();
 
 }
 
+/* PROGRESS */
+
 function updateProgress(){
 
 const total =
@@ -884,6 +742,8 @@ progressBar.style.width =
 
 }
 
+/* RESET */
+
 function resetBoard(){
 
 firstCard = null;
@@ -891,6 +751,8 @@ secondCard = null;
 lockBoard = false;
 
 }
+
+/* BEST SCORE */
 
 function saveBestScore(){
 
@@ -905,13 +767,17 @@ localStorage.getItem(key);
 
 if(best === null || moves < best){
 
-localStorage.setItem(key, moves);
+localStorage.setItem(
+key,
+moves
+);
 
 }
 
 loadBestScore();
 
 }
+
 function loadBestScore(){
 
 const level =
