@@ -64,21 +64,21 @@ easy:{
 pairs:4,
 preview:1700,
 flipBack:1200,
-grid:"repeat(4,120px)"
+grid:"repeat(4,1fr)"
 },
 
 medium:{
 pairs:6,
 preview:1200,
 flipBack:850,
-grid:"repeat(4,120px)"
+grid:"repeat(4,1fr)"
 },
 
 hard:{
 pairs:8,
 preview:800,
 flipBack:450,
-grid:"repeat(4,100px)"
+grid:"repeat(4,1fr)"
 }
 
 };

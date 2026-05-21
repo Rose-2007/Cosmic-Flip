@@ -386,12 +386,16 @@ var(--secondary)
 transition:0.5s;
 }
 
+html, body{
+overflow-x:hidden;
+}
+
 /* BOARD */
 
 .game-board{
 
 display:grid;
-
+padding:10px;
 gap:22px;
 
 justify-content:center;
@@ -400,9 +404,8 @@ justify-content:center;
 /* CARDS */
 
 .card{
-
-width:125px;
-height:125px;
+width:100%;
+aspect-ratio:1/1;
 
 position:relative;
 
@@ -696,6 +699,14 @@ transform:translateY(-20px);
 transform:translateY(0);
 }
 
+}
+
+.game-board{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+max-width:520px;
+margin:auto;
+gap:12px;
 }
 
 /* SHAKE */
