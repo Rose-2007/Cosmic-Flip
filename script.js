@@ -436,10 +436,25 @@ startCountdown();
 
 loadBestScore();
 
-if(
-difficultySelect.value
-=== "hard"
-){
+if(difficultySelect.value === "hard"){
+
+document.body.classList.add(
+"hard-mode"
+);
+
+document.body.style.filter =
+"contrast(1.08) brightness(0.92)";
+
+}else{
+
+document.body.classList.remove(
+"hard-mode"
+);
+
+document.body.style.filter =
+"none";
+
+}
 
 document.body.style.filter =
 "contrast(1.08) brightness(0.92)";
